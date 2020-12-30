@@ -19,7 +19,7 @@ public class Customer {
     @JoinColumn(name = "acc_id")
     private Account account;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id")
     private Set<Specialty> specialties;
 

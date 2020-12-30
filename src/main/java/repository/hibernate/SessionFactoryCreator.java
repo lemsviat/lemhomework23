@@ -1,4 +1,4 @@
-package view;
+package repository.hibernate;
 
 import model.Account;
 import model.Customer;

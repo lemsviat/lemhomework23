@@ -4,7 +4,6 @@ import model.Account;
 import org.hibernate.Session;
 import repository.AccountRepository;
 import view.AccountView;
-import view.SessionFactoryCreator;
 
 public class AccountHibernateRepositoryImpl implements AccountRepository {
     @Override

@@ -30,21 +30,21 @@ public class CustomerView {
         System.out.println(INPUT_CUSTOMER_NAME);
         customerName = InputChecker.readInput();
         customer = new Customer(customerName);
-
         Account customerAccount = new AccountView().createAccount();
         customer.setAccount(customerAccount);
-
-        SpecialtyView specialtyView=new SpecialtyView();
-        specialties=specialtyView.create();
+        SpecialtyView specialtyView = new SpecialtyView();
+        specialties = specialtyView.create();
         customer.setSpecialties(specialties);
-        System.out.println(customer);
-        customerController.create();
+        //System.out.println(customer);
+        //customerController.create();
+        System.out.println("Customer " + customerController.saveCustomer(customer) + " added to DB");
     }
 
     public void read() {
         System.out.println(READ_CUSTOMER_NAME);
         customerName = InputChecker.readInput();
-        customerController.read();
+        //customerController.read();
+        System.out.println("Customer " + customerController.readCustomer(customerName) + " successfully found in DB");
     }
 
     public static Long customerChangeAccountValue;
@@ -54,14 +54,18 @@ public class CustomerView {
         customerName = InputChecker.readInput();
         System.out.println(UPDATE_ACCOUNT_VALUE);
         customerChangeAccountValue = InputChecker.readLongInput();
-        customerController.update();
+        //customerController.update();
+        customer = customerController.readCustomer(customerName);
+        System.out.println("Customer " + customerController.updateCustomer(customer) + " successfully updated in DB");
+
     }
 
     public void delete() {
         System.out.println(DELETE_CUSTOMER_NAME);
         customerName = InputChecker.readInput();
-        //accountController.delete();
-        customerController.delete();
+        customer = customerController.readCustomer(customerName);
+        System.out.println("Customer " + customerController.deleteCustomer(customer) + " successfully deleted from DB");
+        //customerController.delete();
 
     }
 }

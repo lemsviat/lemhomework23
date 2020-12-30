@@ -3,7 +3,6 @@ package repository.hibernate;
 import org.hibernate.Session;
 import repository.AccountRepository;
 import view.CustomerView;
-import view.SessionFactoryCreator;
 
 public class SpecialtyHibernateRepositoryImpl implements AccountRepository {
     @Override
