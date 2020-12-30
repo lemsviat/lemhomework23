@@ -1,8 +1,6 @@
 package view;
 
-import controller.AccountController;
 import controller.CustomerController;
-import controller.SpecialtyController;
 import model.Account;
 import model.Customer;
 import model.Specialty;
@@ -21,8 +19,6 @@ public class CustomerView {
     public static String customerName;
     public static Set<Specialty> specialties;
     CustomerController customerController = new CustomerController();
-    SpecialtyController specialtyController = new SpecialtyController();
-    AccountController accountController = new AccountController();
 
     public static Customer customer;
 
@@ -35,15 +31,12 @@ public class CustomerView {
         SpecialtyView specialtyView = new SpecialtyView();
         specialties = specialtyView.create();
         customer.setSpecialties(specialties);
-        //System.out.println(customer);
-        //customerController.create();
         System.out.println("Customer " + customerController.saveCustomer(customer) + " added to DB");
     }
 
     public void read() {
         System.out.println(READ_CUSTOMER_NAME);
         customerName = InputChecker.readInput();
-        //customerController.read();
         System.out.println("Customer " + customerController.readCustomer(customerName) + " successfully found in DB");
     }
 
@@ -54,7 +47,6 @@ public class CustomerView {
         customerName = InputChecker.readInput();
         System.out.println(UPDATE_ACCOUNT_VALUE);
         customerChangeAccountValue = InputChecker.readLongInput();
-        //customerController.update();
         customer = customerController.readCustomer(customerName);
         System.out.println("Customer " + customerController.updateCustomer(customer) + " successfully updated in DB");
 
@@ -65,7 +57,5 @@ public class CustomerView {
         customerName = InputChecker.readInput();
         customer = customerController.readCustomer(customerName);
         System.out.println("Customer " + customerController.deleteCustomer(customer) + " successfully deleted from DB");
-        //customerController.delete();
-
     }
 }
