@@ -22,10 +22,10 @@ public class MainView {
         mainMenuResult = InputChecker.readIntInput();
         switch (mainMenuResult) {
             case (1):
-                customerView.create();
+                customerView.save();
                 break;
             case (2):
-                customerView.read();
+                customerView.getAll();
                 break;
             case (3):
                 customerView.update();

@@ -21,12 +21,13 @@ public class CustomerView {
     CustomerController customerController = new CustomerController();
 
     public static Customer customer;
+    AccountView accountView=new AccountView();
 
-    public void create() {
+    public void save() {
         System.out.println(INPUT_CUSTOMER_NAME);
         customerName = InputChecker.readInput();
         customer = new Customer(customerName);
-        Account customerAccount = new AccountView().createAccount();
+        Account customerAccount = accountView.createAccount();
         customer.setAccount(customerAccount);
         SpecialtyView specialtyView = new SpecialtyView();
         specialties = specialtyView.create();
@@ -34,10 +35,11 @@ public class CustomerView {
         System.out.println("Customer " + customerController.saveCustomer(customer) + " added to DB");
     }
 
-    public void read() {
+    public void getAll() {
         System.out.println(READ_CUSTOMER_NAME);
         customerName = InputChecker.readInput();
-        System.out.println("Customer " + customerController.readCustomer(customerName) + " successfully found in DB");
+        for (Customer customer:customerController.readCustomer(customerName))
+            System.out.println("Customer " + customer + " successfully found in DB");
     }
 
     public static Long customerChangeAccountValue;
@@ -47,7 +49,7 @@ public class CustomerView {
         customerName = InputChecker.readInput();
         System.out.println(UPDATE_ACCOUNT_VALUE);
         customerChangeAccountValue = InputChecker.readLongInput();
-        customer = customerController.readCustomer(customerName);
+        for (Customer customer:customerController.readCustomer(customerName))
         System.out.println("Customer " + customerController.updateCustomer(customer) + " successfully updated in DB");
 
     }
@@ -55,7 +57,7 @@ public class CustomerView {
     public void delete() {
         System.out.println(DELETE_CUSTOMER_NAME);
         customerName = InputChecker.readInput();
-        customer = customerController.readCustomer(customerName);
+        for (Customer customer:customerController.readCustomer(customerName))
         System.out.println("Customer " + customerController.deleteCustomer(customer) + " successfully deleted from DB");
     }
 }

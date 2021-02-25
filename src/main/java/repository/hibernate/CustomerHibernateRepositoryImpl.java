@@ -2,18 +2,20 @@ package repository.hibernate;
 
 import model.Account;
 import model.Customer;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 import repository.CustomerRepository;
 import view.CustomerView;
+
+import javax.persistence.Query;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CustomerHibernateRepositoryImpl implements CustomerRepository {
 
     @Override
     public Customer saveToDB(Customer customer) {
-        try (Session session = SessionFactoryCreator.getSessionFactory().getCurrentSession()) {
+        try (Session session = SessionCreator.getSession()) {
             session.beginTransaction();
             session.save(customer);
             session.getTransaction().commit();
@@ -22,27 +24,25 @@ public class CustomerHibernateRepositoryImpl implements CustomerRepository {
     }
 
     @Override
-    public Customer readFromDB(String name) {
-        Customer customer = new Customer();
-        try (Session session = SessionFactoryCreator.getSessionFactory().getCurrentSession()) {
+    public List<Customer> getAllFromDB(String name) {
+        List<Customer> listOfCustomers = new ArrayList<>();
+        try (Session session = SessionCreator.getSession()) {
             session.beginTransaction();
-            Criteria criteria = session.createCriteria(Customer.class);
-            customer = (Customer) criteria.add(Restrictions.eq("name", name))
-                    .uniqueResult();
+            Query query = session.createQuery("from Customer where name=:name");
+            query.setParameter("name", name);
+            listOfCustomers = query.getResultList();
             session.getTransaction().commit();
-
-            System.out.println("Customer with name " + name + " has found in DB, it`s ID = " + customer.getId());
 
         } catch (IllegalArgumentException e) {
             System.out.println("Customer not found!");
             e.printStackTrace();
         }
-        return customer;
+        return listOfCustomers;
     }
 
     @Override
     public Customer updateInDB(Customer customer) {
-        try (Session session = SessionFactoryCreator.getSessionFactory().getCurrentSession()) {
+        try (Session session = SessionCreator.getSession()) {
             session.beginTransaction();
             Account account = customer.getAccount();
             account.setAccountValue(customer.getAccount().getAccountValue() + CustomerView.customerChangeAccountValue);
@@ -60,7 +60,7 @@ public class CustomerHibernateRepositoryImpl implements CustomerRepository {
 
     @Override
     public Customer deleteInDB(Customer customer) {
-        try (Session session = SessionFactoryCreator.getSessionFactory().getCurrentSession()) {
+        try (Session session = SessionCreator.getSession()) {
             session.beginTransaction();
             session.delete(customer);
             session.getTransaction().commit();

@@ -4,13 +4,14 @@ import model.Account;
 import model.AccountStatus;
 
 public class AccountView {
-    public static Account customerAccount = new Account();
+
 
     public static final String INPUT_ACCOUNT_VALUE = "Введите сумму средств на аккаунте";
     public static final String INPUT_ACCOUNT_STATUS_MENU = "Введите статус аккаунта: 1-ACTIVE, 2-BANNED, 3-DELETED";
     public static final String INPUT_ACCOUNT_STATUS_CORRECTION = "Введите число от 1 до 3";
 
     public Account createAccount() {
+        Account customerAccount = new Account();
         System.out.println(INPUT_ACCOUNT_VALUE);
         customerAccount.setAccountValue(InputChecker.readLongInput());
         System.out.println(INPUT_ACCOUNT_STATUS_MENU);
